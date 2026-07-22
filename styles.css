@@ -3131,6 +3131,24 @@ body {
   transition: outline-offset 0.2s ease;
 }
 
+/* ======================
+   CONTENT VISIBILITY — LIGHTNING FAST RENDERING
+   Skip rendering off-screen sections until needed
+   ====================== */
+#about,
+#talks,
+#journey,
+#impressions-home,
+.gallery-section,
+.awards-timeline,
+.associations-section,
+.videos-section,
+.impressions-section,
+#main-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

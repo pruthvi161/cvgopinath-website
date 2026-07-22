@@ -11,8 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.css" />
+  <!-- DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://www.youtube.com" />
+  <link rel="dns-prefetch" href="https://img.youtube.com" />
   <!-- Preload critical above-the-fold images -->
   <link rel="preload" as="image" href="portrait.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="fp4.jpg" fetchpriority="high" />
@@ -26,7 +30,7 @@
     <!-- PHASE 0: Promo Video -->
     <div id="intro-phase-promo">
       <div class="intro-promo-video-wrap">
-        <video id="intro-promo-player" autoplay muted playsinline>
+        <video id="intro-promo-player" autoplay muted playsinline preload="auto">
           <source src="radhika productions.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -109,7 +113,7 @@
               playsinline
               preload="metadata"
             >
-              <source id="ivp-source" src="CV GOPINATH_English Byte for Website_FINAL.mp4" type="video/mp4">
+            <source id="ivp-source" src="CV GOPINATH_English Byte for Website_FINAL.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -479,7 +483,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 
 </html>
