@@ -2225,10 +2225,21 @@ video {
   /* Remove underline pseudo-element on mobile */
   .nav-links a::after { display: none; }
 
-  /* Hero */
-  .hero-center { grid-template-columns: 1fr; }
+  /* Hero — center everything on mobile */
+  .hero-center {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 16px;
+  }
   .hero-info-left, .hero-info-right { display: none; }
-  .hero-headline { font-size: clamp(3rem, 15vw, 5rem); }
+  .hero-photo-frame {
+    width: clamp(200px, 55vw, 300px);
+    margin: 0 auto;
+  }
+  .hero-author-name { text-align: center; }
+  .hero-headline { font-size: clamp(2.5rem, 12vw, 4.5rem); text-align: center; }
+  .hero-headline-wrap { text-align: center; }
   .hero-top-bar, .hero-headline-wrap, .hero-center,
   .hero-subtext-bar, .hero-scroll-hint { padding-left: 20px; padding-right: 20px; }
 
@@ -2265,6 +2276,41 @@ video {
   .profile-photo-col img, .profile-plaque-col img, .profile-cover-col img { height: 280px; }
   .profile-grid { grid-template-columns: 1fr; }
   .section-divider { padding-left: 20px; padding-right: 20px; }
+
+  /* Gallery — better mobile layout */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .gallery-filters { flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .filter-btn { font-size: 0.7rem; padding: 8px 14px; }
+
+  /* Page hero — center text */
+  .page-hero-title { font-size: clamp(2rem, 10vw, 3.5rem); }
+  .page-hero-sub { font-size: 0.85rem; padding: 0 8px; }
+
+  /* Section labels — centered */
+  .section-label { text-align: center; }
+  .section-subtitle { text-align: center; }
+
+  /* Video bytes — mobile layout */
+  #video-bytes { padding: 60px 20px; }
+  .vb-headline { font-size: clamp(1.6rem, 8vw, 2.8rem); text-align: center; }
+  .vb-subtext { text-align: center; margin-left: auto; margin-right: auto; }
+  .vb-lang-selector { grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
+  .vb-lang-btn { padding: 20px 8px; }
+  .vb-lang-btn .vb-lang-name { font-size: 1rem; }
+  .vb-flag { font-size: 1.6rem; }
+
+  /* Tables — mobile scroll */
+  .assoc-table { font-size: 0.8rem; }
+  .assoc-table th, .assoc-table td { padding: 12px 10px; }
+
+  /* Intro splash — mobile optimization */
+  .intro-slide h2 { font-size: clamp(1.5rem, 8vw, 2.8rem) !important; }
+  .intro-slide p { font-size: 0.85rem !important; }
+  .intro-btn { padding: 14px 32px; font-size: 0.85rem; }
+
+  /* Touch targets — min 44px */
+  .filter-btn, .articles-tab, .vb-lang-btn, .talk-btn,
+  .nav-links a { min-height: 44px; }
 }
 
 /* ======================
@@ -2273,20 +2319,34 @@ video {
 @media (max-width: 480px) {
   #main-nav { padding: 0 16px; }
   .nav-brand-name { font-size: 0.95rem; max-width: 150px; }
-  .hero-headline { font-size: clamp(2.5rem, 13vw, 4rem); }
+  .hero-headline { font-size: clamp(2rem, 11vw, 3.5rem); }
+  .hero-photo-frame { width: clamp(180px, 60vw, 260px); }
   .talk-row { grid-template-columns: 60px 1fr; }
   .talk-btn { display: none; }
   .section-title-marquee { font-size: clamp(2rem, 12vw, 4rem); }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .certs-grid { grid-template-columns: 1fr; }
-  .articles-tabs { padding: 0 16px; gap: 0; }
+  .articles-tabs { padding: 0 16px; gap: 0; flex-wrap: wrap; }
+  .articles-tab { font-size: 0.7rem; padding: 10px 12px; }
   .articles-content { padding: 0 16px 60px; }
   .footer-bottom { grid-template-columns: 1fr; }
   .footer-copy { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-marquee { font-size: clamp(3rem, 18vw, 6rem); }
   .videos-grid { grid-template-columns: 1fr; }
   .journey-cards { grid-template-columns: 1fr; }
+  .journey-card { padding: 24px 20px; }
   .impressions-letter-scroll { grid-template-columns: 1fr; }
   .nav-links a { padding: 15px 20px; font-size: 0.8rem; }
+  .testimonial-card { padding: 24px 20px; }
+  .about-body { font-size: 0.88rem; }
+
+  /* Lightbox mobile */
+  .lightbox { padding: 16px; }
+  .lightbox-close { top: -32px; font-size: 1.2rem; }
+
+  /* Profile page mobile */
+  .profile-bio { font-size: 0.88rem; line-height: 1.75; }
+  .profile-section-title { font-size: 1.4rem; }
 }
 
 
