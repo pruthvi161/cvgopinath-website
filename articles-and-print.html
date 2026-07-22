@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articles and Print – C V Gopinath</title>
+  <meta name="description" content="Articles and Print by C V Gopinath and press coverage about him in Deccan Herald, Prajavani, Mysuru Mithra, Star of Mysore, and other publications." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== ARTICLES PAGE — UNIFORM LAYOUT ===== */
+    .articles-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      margin-bottom: 0;
+    }
+    .articles-tab {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 18px 28px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+      white-space: nowrap;
+    }
+    .articles-tab:hover { color: var(--text-primary); }
+    .articles-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .articles-content {
+      padding: 0 48px 80px;
+    }
+    .article-panel { display: none; }
+    .article-panel.active { display: block; }
+
+    /* ===== ARTICLE ROWS ===== */
+    .articles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 32px;
+    }
+    .article-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 0 32px;
+      padding: 26px 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: border-color 0.25s, background 0.25s;
+      text-decoration: none;
+    }
+    .article-row:hover {
+      border-color: var(--border-hover, rgba(212,160,23,0.3));
+      background: var(--bg-card-hover, #141409);
+    }
+    .article-index {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(212,160,23,0.18);
+      line-height: 1;
+      text-align: right;
+      user-select: none;
+    }
+    .article-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .article-source {
+      font-family: var(--font-sans);
+      font-size: 0.67rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .article-title-text {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .article-date {
+      font-family: var(--font-sans);
+      font-size: 0.73rem;
+      color: var(--text-muted);
+    }
+    .article-link-btn {
+      flex-shrink: 0;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 10px 22px;
+      border: 1px solid rgba(212,160,23,0.35);
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .article-link-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+    .article-link-btn.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ===== PRESS PHOTOS GRID ===== */
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 4px;
+      margin-top: 32px;
+    }
+    .press-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      background: var(--bg-card);
+    }
+    .press-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+      filter: grayscale(15%) brightness(0.85);
+    }
+    .press-item:hover img {
+      transform: scale(1.05);
+      filter: grayscale(0%) brightness(1);
+    }
+    .press-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 100%);
+      padding: 20px 16px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .press-item:hover .press-caption { opacity: 1; }
+
+    /* Panel sub-heading */
+    .panel-count {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 28px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-count span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .articles-tabs { padding: 0 16px; overflow-x: auto; }
+      .articles-content { padding: 0 16px 60px; }
+      .article-row {
+        grid-template-columns: 32px 1fr;
+        gap: 0 16px;
+      }
+      .article-link-btn { display: none; }
+      .article-row { cursor: pointer; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-brand"><span class="nav-brand-name">C V Gopinath</span></div>
+    <button class="nav-menu-btn" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="articles-and-print.html" class="active">Articles and Print</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="associations.html">Associations</a></li>
+      <li><a href="impressions.html">Impressions</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <p class="page-hero-label">The Written Word</p>
+    <h1 class="page-hero-title">Articles and <span>Print</span></h1>
+    <p class="page-hero-sub">Vedic wisdom distilled into prose — articles by C V Gopinath and media coverage across India's leading publications.</p>
+  </div>
+
+  <!-- ===== TABS ===== -->
+  <div class="articles-tabs" role="tablist">
+    <button class="articles-tab active" data-panel="panel-by" id="tab-by" role="tab" aria-selected="true">By C V Gopinath</button>
+    <button class="articles-tab" data-panel="panel-about" id="tab-about" role="tab" aria-selected="false">About C V Gopinath</button>
+    <button class="articles-tab" data-panel="panel-press" id="tab-press" role="tab" aria-selected="false">Press Coverage</button>
+    <button class="articles-tab" data-panel="panel-audio" id="tab-audio" role="tab" aria-selected="false">Audio & Radio</button>
+  </div>
+
+  <div class="articles-content">
+
+    <!-- ===== TAB 1: BY C V GOPINATH ===== -->
+    <div class="article-panel active" id="panel-by" role="tabpanel">
+      <p class="panel-count"><span>8</span> Articles</p>
+      <div class="articles-list">
+
+        <a href="assets/articles-src/Aricles/Articles/Deccan Herald Leadership.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">01</span>
+          <div class="article-row-info">
+            <span class="article-source">Deccan Herald</span>
+            <span class="article-title-text">Leadership Through the Vedic Lens</span>
+            <span class="article-date">Motivational Column</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/Musings of guiding Civil services aspirants.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">02</span>
+          <div class="article-row-info">
+            <span class="article-source">Mysuru Mithra</span>
+            <span class="article-title-text">Musings on Guiding Civil Services Aspirants</span>
+            <span class="article-date">Mysuru Mitra · Dec 2021</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/Thatayya day article Kannada (1).pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">03</span>
+          <div class="article-row-info">
+            <span class="article-source">Mysuru Mithra</span>
+            <span class="article-title-text">Thathaiah – A Tribute (Kannada)</span>
+            <span class="article-date">Mysuru Mitra · Thatayya Day</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/Thatayya Day Article-English.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">04</span>
+          <div class="article-row-info">
+            <span class="article-source">Cultural Essay</span>
+            <span class="article-title-text">Thatayya Day Article (English)</span>
+            <span class="article-date">Essay · English</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/SOM-Coverage.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">05</span>
+          <div class="article-row-info">
+            <span class="article-source">Star of Mysore</span>
+            <span class="article-title-text">Coverage in Star of Mysore</span>
+            <span class="article-date">Star of Mysore · Cultural Page</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/Abhimata-CVG-NPB.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">06</span>
+          <div class="article-row-info">
+            <span class="article-source">Abhimata</span>
+            <span class="article-title-text">Abhimata Article – CVG &amp; NPB</span>
+            <span class="article-date">Abhimata Publication</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <div class="article-row reveal" style="cursor:default;">
+          <span class="article-index">07</span>
+          <div class="article-row-info">
+            <span class="article-source">Samkalp</span>
+            <span class="article-title-text">Samkalp Article – Vedic Philosophy</span>
+            <span class="article-date">Samkalp Journal</span>
+          </div>
+          <span class="article-link-btn disabled">Pending</span>
+        </div>
+
+        <div class="article-row reveal" style="cursor:default;">
+          <span class="article-index">08</span>
+          <div class="article-row-info">
+            <span class="article-source">Cultural Essay</span>
+            <span class="article-title-text">Article on Hotel Industry – Perspectives</span>
+            <span class="article-date">Essay by C V Gopinath</span>
+          </div>
+          <span class="article-link-btn disabled">Pending</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== TAB 2: ABOUT C V GOPINATH ===== -->
+    <div class="article-panel" id="panel-about" role="tabpanel">
+      <p class="panel-count"><span>4</span> Articles</p>
+      <div class="articles-list">
+
+        <div class="article-row reveal" style="cursor:default;">
+          <span class="article-index">01</span>
+          <div class="article-row-info">
+            <span class="article-source">Sudha Magazine</span>
+            <span class="article-title-text">Satyavrat Shastri – Article on C V Gopinath</span>
+            <span class="article-date">Written by Gyan Pith Laureate Dr. Satya Vrath Shastri</span>
+          </div>
+          <span class="article-link-btn disabled">Pending</span>
+        </div>
+
+        <a href="assets/articles-src/Aricles/Articles/Mysuru Mitra -article-Dec-2021.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">02</span>
+          <div class="article-row-info">
+            <span class="article-source">Mysuru Mithra</span>
+            <span class="article-title-text">Coverage on Thathaiah Day by Mysuru Mitra</span>
+            <span class="article-date">Mysuru Mithra · Dec 2021</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <a href="assets/articles-src/Aricles/Articles/Abhimata Article.pdf" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">03</span>
+          <div class="article-row-info">
+            <span class="article-source">Abhimata</span>
+            <span class="article-title-text">Abhimata Full Article on C V Gopinath</span>
+            <span class="article-date">Abhimata · Complete Feature</span>
+          </div>
+          <span class="article-link-btn">Read →</span>
+        </a>
+
+        <div class="article-row reveal" style="cursor:default;">
+          <span class="article-index">04</span>
+          <div class="article-row-info">
+            <span class="article-source">Literary Essay</span>
+            <span class="article-title-text">Bhirappa Article – Cultural Perspective</span>
+            <span class="article-date">Literary Essay</span>
+          </div>
+          <span class="article-link-btn disabled">Pending</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== TAB 3: PRESS COVERAGE (Photo Grid) ===== -->
+    <div class="article-panel" id="panel-press" role="tabpanel">
+      <p class="panel-count"><span>13</span> Publications</p>
+      <div class="press-grid">
+
+        <div class="press-item reveal gallery-item" data-caption="Andolana – Press Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Andolana.jpg" alt="Andolana coverage" loading="lazy" />
+          <div class="press-caption">Andolana</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Kannada Prabha – Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Kannada Prabha.jpg" alt="Kannada Prabha" loading="lazy" />
+          <div class="press-caption">Kannada Prabha</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Mysuru Mithra – Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Mysuru Mithra.jpg" alt="Mysuru Mithra" loading="lazy" />
+          <div class="press-caption">Mysuru Mithra</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Vijayavani – Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Vijayavani.png" alt="Vijayavani" loading="lazy" />
+          <div class="press-caption">Vijayavani</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Press Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Press coverage-1.jpg" alt="Press coverage" loading="lazy" />
+          <div class="press-caption">Press Coverage</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Press Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Press coverage-2.jpg" alt="Press coverage" loading="lazy" />
+          <div class="press-caption">Press Coverage</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Press Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Press coverage-3.jpg" alt="Press coverage" loading="lazy" />
+          <div class="press-caption">Press Coverage</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Mysuru Mitra – Extensive Coverage" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Mysuru Mitra Coverage.jpg" alt="Mysuru Mitra" loading="lazy" />
+          <div class="press-caption">Mysuru Mitra Coverage</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Kailash Darshan – Madikeri (Kannada)" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Kailash-Darshan-Madikeri-Kannada.jpg" alt="Kailash Darshan Madikeri" loading="lazy" />
+          <div class="press-caption">Kailash Darshan — Madikeri</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="A Pilgrimage to Himalayan Heights – by G.T. Narayana Rao" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Pilgrimage-Himalayan-Heights-GT-Narayana-Rao.jpg" alt="Pilgrimage to Himalayan Heights" loading="lazy" />
+          <div class="press-caption">A Pilgrimage to Himalayan Heights</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Samyukta Karnataka – Hubli, 23 July 2002" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Samyukta-Karnataka-Hubli-2002.jpg" alt="Samyukta Karnataka" loading="lazy" />
+          <div class="press-caption">Samyukta Karnataka — Hubli, 2002</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Star of Mysore – On the banks of Manasarovar, 7 Nov 2000" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Star-of-Mysore-Manasarovar-Nov2000.jpg" alt="Star of Mysore" loading="lazy" />
+          <div class="press-caption">Star of Mysore — Nov 2000</div>
+        </div>
+
+        <div class="press-item reveal gallery-item" data-caption="Mysuru Mithra – Kailash Yatra Feature, 12 Nov 2000" data-category="press">
+          <img src="assets/articles-src/Aricles/Articles/Mysuru-Mithra-Kailash-Yatra-Nov2000.jpg" alt="Mysuru Mithra Personality Feature" loading="lazy" />
+          <div class="press-caption">Mysuru Mithra — Nov 2000</div>
+        </div>
+
+    </div>
+    </div><!-- /#panel-press -->
+
+    <!-- ===== TAB 4: AUDIO & RADIO ===== -->
+    <div class="article-panel" id="panel-audio" role="tabpanel">
+      <p class="panel-count"><span>2</span> Audio Programs</p>
+      <div class="articles-list">
+
+        <a href="https://www.youtube.com/watch?v=fOop3ZLblqY" class="article-row reveal" target="_blank" rel="noopener">
+          <span class="article-index">01</span>
+          <div class="article-row-info">
+            <span class="article-source">All India Radio (Mysuru)</span>
+            <span class="article-title-text">Akashavani Live Broadcast Interview Session</span>
+            <span class="article-date">Radio Interview</span>
+          </div>
+          <span class="article-link-btn">Listen →</span>
+        </a>
+
+        <div class="article-row reveal" style="cursor:default;">
+          <span class="article-index">02</span>
+          <div class="article-row-info">
+            <span class="article-source">Discourse on OM</span>
+            <span class="article-title-text">OM, the Primordial sound, in 18 Indian languages</span>
+            <span class="article-date">Audio Discourse Series</span>
+          </div>
+          <span class="article-link-btn disabled">Pending</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUICK MEDIA PORTAL -->
+  <section style="border-top:1px solid var(--border); padding:80px 48px; background:rgba(255,255,255,0.01);" class="reveal">
+    <div class="section-label" style="margin-bottom:24px;">Media Directory</div>
+    <h3 style="font-family:var(--font-serif); font-size:1.8rem; text-align:center; color:var(--text-primary); margin-bottom:40px;">Explore C V Gopinath through all Media</h3>
+    <div style="overflow-x: auto; margin-top: 32px;" class="reveal">
+      <table class="assoc-table">
+        <thead>
+          <tr>
+            <th style="width: 8%; text-align: center;">Icon</th>
+            <th style="width: 22%;">Media Category</th>
+            <th style="width: 55%;">Description</th>
+            <th style="text-align: center; width: 15%;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📰</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Print</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Articles by C V Gopinath and media coverage.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Explore Print →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📻</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Discourse on OM, the Primordial, in 18 Indian languages, and radio talks.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html?tab=audio" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Listen Audio →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🖼️</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Motivational talks and interaction with Civil Services aspirants.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="gallery.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">View Gallery →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🎥</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio-Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Globally celebrated Audio-Visual presentation in English, Kannada and Hindi on the subject of "Himalayas on Vedic concepts" - Globally known AV show on Pilgrimage and Manasarovar.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="videos.html?filter=video" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Watch Videos →</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightbox-close">✕</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <footer id="main-footer">
+    <div class="footer-brand-row">
+      <span class="footer-strategy">A VOICE</span><span class="footer-for">FOR</span><span class="footer-context">TIMELESS INDIA</span>
+    </div>
+    <div class="footer-marquee-wrap"><h2 class="footer-marquee">VEDIC SCHOLAR</h2></div>
+    <div class="footer-bottom">
+      <div class="footer-nav-col"><a href="index.html">Home</a><a href="profile.html">Profile</a><a href="articles-and-print.html">Articles and Print</a></div>
+      <div class="footer-nav-col"><a href="videos.html">Videos</a><a href="gallery.html">Gallery</a><a href="awards.html">Awards</a></div>
+      <div class="footer-nav-col"><a href="associations.html">Associations</a><a href="impressions.html">Impressions</a></div>
+      <div class="footer-contact-col"><span>Karnataka, India</span><span>Speaking Nationwide</span>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@GopinathGrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link yt" aria-label="C V Gopinath on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.instagram.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link ig" aria-label="C V Gopinath on Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link fb" aria-label="C V Gopinath on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy"><span>©2025 C V GOPINATH</span><span>·</span><span>Crafted with devotion</span></div>
+  </footer>
+
+  <script src="main.js"></script>
+
+  <script>
+    // ===== ARTICLE TABS =====
+    const tabs   = document.querySelectorAll('.articles-tab');
+    const panels = document.querySelectorAll('.article-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        const panel = document.getElementById(tab.dataset.panel);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // ===== ACTIVATE TAB FROM URL =====
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTabParam = urlParams.get('tab');
+    if (initialTabParam) {
+      const targetTab = document.querySelector(`.articles-tab[data-panel="panel-${initialTabParam}"]`);
+      if (targetTab) {
+        targetTab.click();
+      }
+    }
+
+    // ===== PRESS PHOTOS LIGHTBOX =====
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightbox-img');
+    const lightboxCap   = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    function openLB(src, cap) {
+      lightboxImg.src = src;
+      if (lightboxCap) lightboxCap.textContent = cap || '';
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(() => { lightboxImg.src = ''; }, 300);
+    }
+
+    document.querySelectorAll('.press-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (img) openLB(img.src, item.dataset.caption || '');
+      });
+    });
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLB);
+    if (lightbox) {
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLB(); });
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+  </script>
+</body>
+</html>

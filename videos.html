@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Videos – C V Gopinath · Talks &amp; Discourses</title>
+  <meta name="description" content="Watch talks and discourses by C V Gopinath – Bhagavadgeetha, Vedic philosophy, motivational speeches across national media." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== VIDEO GRID ===== */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 48px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .video-card {
+      background: #1a1a1a;
+      border: 1px solid #2d2d2d;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .video-card:hover {
+      border-color: #D4AF37;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(212,175,55,0.12);
+    }
+
+    .video-card.no-link {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .video-card.no-link:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: #2d2d2d;
+    }
+
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .video-card:hover .video-thumb img {
+      transform: scale(1.05);
+    }
+
+    /* No-thumbnail placeholder */
+    .video-thumb-blank {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      color: rgba(212,175,55,0.1);
+    }
+
+    /* Play button overlay */
+    .video-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-card:hover .video-play {
+      opacity: 1;
+    }
+
+    .video-play-icon {
+      width: 60px;
+      height: 60px;
+      background: #D4AF37;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(212,175,55,0.5);
+    }
+
+    .video-play-icon::after {
+      content: '';
+      border-left: 20px solid #000;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      margin-left: 5px;
+    }
+
+    /* "Link Pending" badge */
+    .video-pending-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.75);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .video-info {
+      padding: 20px;
+    }
+
+    .video-info h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 8px;
+      line-height: 1.4;
+    }
+
+    .video-info .video-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: #D4AF37;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== VIDEO MODAL ===== */
+    #videoModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    #videoModal.active {
+      display: flex;
+    }
+
+    .video-modal-inner {
+      position: relative;
+      width: 90vw;
+      max-width: 900px;
+    }
+
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: -48px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #D4AF37;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      transition: color 0.2s;
+    }
+
+    .video-modal-close:hover { color: #fff; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); padding: 32px 24px; }
+    }
+    @media (max-width: 600px) {
+      .video-grid { grid-template-columns: 1fr; padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== VIDEO MODAL ===== -->
+  <div id="videoModal">
+    <div class="video-modal-inner">
+      <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close video">✕</button>
+      <div class="video-embed" id="videoEmbed"></div>
+    </div>
+  </div>
+
+  <nav id="main-nav">
+    <div class="nav-brand"><span class="nav-brand-name">C V Gopinath</span></div>
+    <button class="nav-menu-btn" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="articles-and-print.html">Articles and Print</a></li>
+      <li><a href="videos.html" class="active">Videos</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="associations.html">Associations</a></li>
+      <li><a href="impressions.html">Impressions</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <p class="page-hero-label">Print, Audio, Visual &amp; Audio-Visual</p>
+    <h1 class="page-hero-title">Talks &amp; <span>Discourses</span></h1>
+    <p class="page-hero-sub">Recorded talks spanning Vedic philosophy, motivational speaking, and cultural discourse – across India's leading media platforms.</p>
+  </div>
+
+  <!-- ===== TABS ===== -->
+  <div class="articles-tabs" role="tablist" style="margin-bottom: 40px;">
+    <button class="articles-tab active" data-filter="all">All Discourses</button>
+    <button class="articles-tab" data-filter="video">Audio-Visual (Videos)</button>
+    <button class="articles-tab" data-filter="audio">Audio (Radio)</button>
+    <button class="articles-tab" data-filter="print">Print References</button>
+  </div>
+
+  <!-- ===== VIDEO GRID ===== -->
+  <div class="video-grid">
+
+    <!-- 1: English OM — The Primordial Sound (52 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('-NYfPlDs7lU')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/-NYfPlDs7lU/hqdefault.jpg" alt="English – OM The Primordial Sound" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>OM — The Primordial Sound (English)</h3>
+        <div class="video-meta">A Perspective of Vedas, Upanishads &amp; Cultures of the East · 52 min</div>
+      </div>
+    </div>
+
+    <!-- 2: Bhagavadgeetha — Multiple Approaches (29 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('3jZL032NUbI')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/3jZL032NUbI/hqdefault.jpg" alt="An Insight into Bhagavadgeetha" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>An Insight into Bhagavadgeetha</h3>
+        <div class="video-meta">Through Multiple Approaches of Day to Day Life · 29 min</div>
+      </div>
+    </div>
+
+    <!-- 3: Prajavani — Motivational Lecture (39 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('Op4lkjgAWiI')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/Op4lkjgAWiI/hqdefault.jpg" alt="Prajavani Motivational Lecture" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Motivational Lecture</h3>
+        <div class="video-meta">Courtesy: Prajavani Karnataka · 39 min</div>
+      </div>
+    </div>
+
+    <!-- 4: Akashavani Interview (29 min) -->
+    <div class="video-card" data-category="audio" onclick="openVideoModal('HUUvICr_HpU')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/HUUvICr_HpU/hqdefault.jpg" alt="Akashavani Mysore Interview" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Akashavani Mysore — Interview</h3>
+        <div class="video-meta">Interview by Sri Diwakar Hegde · All India Radio · 29 min</div>
+      </div>
+    </div>
+
+    <!-- 5: Deccan Herald – UPSC Insight (15 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('ztt81o6g9x4')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/ztt81o6g9x4/hqdefault.jpg" alt="How to Crack UPSC – An Insight" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>How to Crack UPSC — An Insight</h3>
+        <div class="video-meta">Courtesy: Deccan Herald Mysore · 15 min</div>
+      </div>
+    </div>
+
+    <!-- 6: Navodaya School — Motivational Lecture (8 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('DWJLQjCyk2I')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/DWJLQjCyk2I/hqdefault.jpg" alt="Navodaya School Motivational Lecture" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Navodaya School — Motivational Lecture</h3>
+        <div class="video-meta">Motivational Talk for Students · 8 min</div>
+      </div>
+    </div>
+
+    <!-- 7: Message on Gita Jayanthi (6 min) -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('YZlwBgU5NsA')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/YZlwBgU5NsA/hqdefault.jpg" alt="Message on Gita Jayanthi Day" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Message on Gita Jayanthi Day</h3>
+        <div class="video-meta">Vedic Philosophy · 6 min</div>
+      </div>
+    </div>
+
+    <!-- 8: Invoking blessings on PM Modi -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('uztlgLPeW4Q')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/uztlgLPeW4Q/hqdefault.jpg" alt="Invoking Divine Blessings on PM Modi" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Invoking Divine Blessings on Narendra Modi Ji</h3>
+        <div class="video-meta">Blessing the Prime Minister of India · 1 min</div>
+      </div>
+    </div>
+
+    <!-- 9: Channel Intent — English -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('XwsD5LW0IAk')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/XwsD5LW0IAk/hqdefault.jpg" alt="Intent of This Channel – English" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Intent of This Channel (English)</h3>
+        <div class="video-meta">Introduction · 1 min</div>
+      </div>
+    </div>
+
+    <!-- 10: Channel Intent — Hindi -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('OesgEs0UNl4')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/OesgEs0UNl4/hqdefault.jpg" alt="Intent of This Channel – Hindi" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Intent of This Channel (Hindi)</h3>
+        <div class="video-meta">Introduction in Hindi · 1 min</div>
+      </div>
+    </div>
+
+    <!-- 11: Channel Intent — Kannada -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('wv-QdBcSM1I')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/wv-QdBcSM1I/hqdefault.jpg" alt="Intent of This Channel – Kannada" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Intent of This Channel (Kannada)</h3>
+        <div class="video-meta">Introduction in Kannada · 1 min</div>
+      </div>
+    </div>
+
+    <!-- 12: Short — Blessings on Nirmala Sitharaman -->
+    <div class="video-card" data-category="video" onclick="openVideoModal('oSIaovFAfdo')">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/oSIaovFAfdo/hqdefault.jpg" alt="Blessings on Nirmala Sitharaman" loading="lazy" />
+        <div class="video-play"><div class="video-play-icon"></div></div>
+      </div>
+      <div class="video-info">
+        <h3>Blessings on Nirmala Sitharaman</h3>
+        <div class="video-meta">For Continued Service to Bharat Matha · Short</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUICK MEDIA PORTAL -->
+  <section style="border-top:1px solid var(--border); padding:80px 48px; background:rgba(255,255,255,0.01);" class="reveal">
+    <div class="section-label" style="margin-bottom:24px;">Media Directory</div>
+    <h3 style="font-family:var(--font-serif); font-size:1.8rem; text-align:center; color:var(--text-primary); margin-bottom:40px;">Explore C V Gopinath through all Media</h3>
+    <div style="overflow-x: auto; margin-top: 32px;" class="reveal">
+      <table class="assoc-table">
+        <thead>
+          <tr>
+            <th style="width: 8%; text-align: center;">Icon</th>
+            <th style="width: 22%;">Media Category</th>
+            <th style="width: 55%;">Description</th>
+            <th style="text-align: center; width: 15%;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📰</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Print</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Articles by C V Gopinath and media coverage.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Explore Print →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📻</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Discourse on OM, the Primordial, in 18 Indian languages, and radio talks.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html?tab=audio" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Listen Audio →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🖼️</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Motivational talks and interaction with Civil Services aspirants.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="gallery.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">View Gallery →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🎥</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio-Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Globally celebrated Audio-Visual presentation in English, Kannada and Hindi on the subject of "Himalayas on Vedic concepts" - Globally known AV show on Pilgrimage and Manasarovar.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="videos.html?filter=video" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Watch Videos →</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer id="main-footer">
+    <div class="footer-brand-row">
+      <span class="footer-strategy">A VOICE</span><span class="footer-for">FOR</span><span class="footer-context">TIMELESS INDIA</span>
+    </div>
+    <div class="footer-marquee-wrap"><h2 class="footer-marquee">VEDIC SCHOLAR</h2></div>
+    <div class="footer-bottom">
+      <div class="footer-nav-col">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="articles-and-print.html">Articles and Print</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="videos.html">Videos</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="awards.html">Awards</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="associations.html">Associations</a>
+        <a href="impressions.html">Impressions</a>
+      </div>
+      <div class="footer-contact-col"><span>Karnataka, India</span><span>Speaking Nationwide</span>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@GopinathGrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link yt" aria-label="C V Gopinath on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.instagram.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link ig" aria-label="C V Gopinath on Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link fb" aria-label="C V Gopinath on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy"><span>©2025 C V GOPINATH</span><span>·</span><span>Crafted with devotion</span></div>
+  </footer>
+
+  <script src="main.js"></script>
+
+  <script>
+    function openVideoModal(id) {
+      document.getElementById('videoEmbed').innerHTML =
+        '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      document.getElementById('videoModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoEmbed').innerHTML = '';
+      document.getElementById('videoModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) closeVideoModal();
+    });
+
+    // ===== CATEGORY FILTERING =====
+    const videoTabs = document.querySelectorAll('.articles-tab');
+    const videoCards = document.querySelectorAll('.video-card');
+
+    function applyFilter(filterVal) {
+      // Update active tab styles
+      videoTabs.forEach(t => {
+        if (t.dataset.filter === filterVal) {
+          t.classList.add('active');
+          t.setAttribute('aria-selected', 'true');
+        } else {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      // Filter card visibility
+      videoCards.forEach(card => {
+        if (filterVal === 'all' || card.dataset.category === filterVal) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    videoTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        applyFilter(tab.dataset.filter);
+      });
+    });
+
+    // Check query parameters on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const filterParam = urlParams.get('filter');
+      if (filterParam) {
+        applyFilter(filterParam);
+      }
+    });
+  </script>
+</body>
+</html>

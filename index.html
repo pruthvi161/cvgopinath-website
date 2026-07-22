@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C V Gopinath — Vedic Scholar · Motivational Speaker · Cultural Voice of India</title>
+  <meta name="description"
+    content="Official portfolio of C V Gopinath — Vedic Scholar, Motivational Speaker, and Cultural Voice of India. Bridging ancient Indian philosophy with modern life." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Preload critical above-the-fold images -->
+  <link rel="preload" as="image" href="portrait.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="fp4.jpg" fetchpriority="high" />
+</head>
+
+<body>
+
+  <!-- ===== INTRO SPLASH SCREEN ===== -->
+  <div id="intro-splash">
+
+    <!-- PHASE 0: Promo Video -->
+    <div id="intro-phase-promo">
+      <div class="intro-promo-video-wrap">
+        <video id="intro-promo-player" autoplay muted playsinline>
+          <source src="radhika productions.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="intro-promo-controls">
+          <button class="intro-btn" id="intro-promo-unmute">🔊 Unmute</button>
+          <button class="intro-skip" id="intro-promo-skip">Skip Video →</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PHASE 1: Photo Slideshow -->
+    <div id="intro-phase-photos" class="intro-phase-hidden">
+      <div class="intro-slideshow">
+        <!-- fp4: Moving to platform — packed audience (cover) — FIRST -->
+        <div class="intro-slide intro-cover active" style="background-image:url('fp4.jpg')"></div>
+        <!-- fp1: Gopinath speaking — lighter mood, addressing audience (cover) -->
+        <div class="intro-slide intro-cover" style="background-image:url('fp1.jpg')"></div>
+        <!-- fp2: Gopinath at podium — Platinum Jubilee event (cover) -->
+        <div class="intro-slide intro-cover" style="background-image:url('fp2.jpg')"></div>
+        <!-- fp3: Saffron shawl, smiling — cropped (cover) -->
+        <div class="intro-slide intro-contain intro-slide-fp3" style="background-image:url('fp3.png')"></div>
+        <!-- fp5: Honoured with garlands & turban (cover) -->
+        <div class="intro-slide intro-contain" style="background-image:url('fp5.png')"></div>
+
+        <!-- fp7: Speaking with mic, navy & yellow (cover) -->
+        <div class="intro-slide intro-contain intro-slide-fp7" style="background-image:url('fp7.png')"></div>
+      </div>
+      <div class="intro-overlay"></div>
+      <div class="intro-content">
+        <div class="intro-logo-mark">ॐ</div>
+        <h1 class="intro-name">C V Gopinath</h1>
+        <p class="intro-tagline">Vedic Scholar &nbsp;·&nbsp; Motivational Speaker &nbsp;·&nbsp; Cultural Voice of India
+        </p>
+        <div class="intro-bar">
+          <div class="intro-progress" id="intro-progress"></div>
+        </div>
+        <button class="intro-skip" id="intro-skip">Skip →</button>
+      </div>
+      <div class="intro-dots" id="intro-dots">
+        <span class="intro-dot active"></span>
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+      </div>
+    </div>
+
+    <!-- PHASE 2: Language Video Selection -->
+    <div id="intro-phase-videos" class="intro-phase-hidden">
+      <div class="ivp-overlay"></div>
+      <div class="ivp-inner">
+        <div class="ivp-header">
+          <div class="ivp-logo-mark">ॐ</div>
+          <h2 class="ivp-title">C V Gopinath, the interpreter of &ldquo;Om&mdash;The primordial sound&rdquo;&mdash; in 18 Indian languages and German language</h2>
+          <p class="ivp-sub">A perspectives of Vedas, Upanishads and cultures of the East</p>
+        </div>
+
+        <!-- Language Tabs -->
+        <div class="ivp-lang-tabs" id="ivp-lang-tabs">
+          <button class="ivp-tab active" data-lang="english" id="ivp-tab-english">
+            <span class="ivp-tab-name">English</span>
+          </button>
+          <button class="ivp-tab" data-lang="hindi" id="ivp-tab-hindi">
+            <span class="ivp-tab-name">Hindi</span>
+          </button>
+          <button class="ivp-tab" data-lang="kannada" id="ivp-tab-kannada">
+            <span class="ivp-tab-name">Kannada</span>
+          </button>
+        </div>
+
+        <!-- Video Player (Local MP4 Language Bytes) -->
+        <div class="ivp-player-wrap">
+          <div class="ivp-iframe-wrap">
+            <video
+              id="ivp-player"
+              class="ivp-video"
+              controls
+              playsinline
+              preload="metadata"
+            >
+              <source id="ivp-source" src="CV GOPINATH_English Byte for Website_FINAL.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="ivp-now-bar">
+            <span class="ivp-np-dot"></span>
+            <span id="ivp-now-label">Now Playing: English Byte</span>
+          </div>
+
+        </div>
+
+
+        <!-- Enter Button -->
+        <button class="ivp-enter-btn" id="ivp-enter-btn">Enter the Website &nbsp;→</button>
+      </div>
+    </div>
+
+  </div>
+  <!-- ===== END INTRO SPLASH ===== -->
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <div class="nav-brand">
+      <span class="nav-brand-name">C V Gopinath</span>
+    </div>
+    <button class="nav-menu-btn" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="articles-and-print.html">Articles and Print</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="associations.html">Associations</a></li>
+      <li><a href="impressions.html">Impressions</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+
+
+
+    <!-- Single SEO h1 wrapping both visual lines -->
+    <h1 class="hero-headline-seo-only" aria-label="A Perspective Of The Dimensions Of Gopinath Grand Pa">A Perspective Of The Dimensions Of Gopinath Grand Pa</h1>
+    <div class="hero-headline-wrap">
+      <div class="hero-headline" aria-hidden="true">
+        <span class="hero-line-left">A PERSPECTIVE OF THE DIMENSIONS OF GOPINATH GRAND PA</span>
+      </div>
+    </div>
+
+    <div class="hero-center">
+      <div class="hero-info-left">
+        <p class="hero-info-label">Location</p>
+        <p class="hero-info-text">Based in Mysuru &mdash; City of Palaces</p>
+        <p class="hero-info-text">State of Karnataka, India</p>
+        <p class="hero-info-text">Credentials beyond the boundaries of India</p>
+      </div>
+
+      <div class="hero-photo-frame">
+        <img src="portrait.jpg" alt="C V Gopinath — Vedic Scholar and Motivational Speaker" class="hero-photo"
+          id="hero-photo" fetchpriority="high" loading="eager" decoding="async" />
+      </div>
+
+      <div class="hero-info-right">
+        <p class="hero-info-label">Services</p>
+        <p class="hero-info-text">C. V. Gopinath an expert in engineering &amp; management is a person blended with deep roots in tradition and commitment to society, yet one who strides the vistas of modernity.</p>
+      </div>
+    </div>
+
+
+
+    <div class="hero-subtext-bar">
+      <div class="hero-author-name">C V Gopinath</div>
+      <p class="hero-subtext">Vedic Scholar &nbsp;·&nbsp; Motivational Speaker &nbsp;·&nbsp; Cultural Voice of India</p>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span class="scroll-line"></span>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  <!-- BLESSINGS VIDEO -->
+  <section id="blessings-video-section" class="reveal">
+    <div class="blessings-video-container">
+      <div class="section-label" style="margin-bottom: 0;">A Sacred Moment</div>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--text-primary);text-align:center;margin:0;">
+        Blessing the Hon'ble Prime Minister<br><em class="gold">Shri Narendra Modi</em>
+      </h2>
+      <div class="blessings-video-player-wrap" style="position:relative;">
+        <video
+          id="blessings-video"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+          style="width:100%;height:100%;display:block;background:#000;outline:none;"
+        >
+          <source src="blessing-modi.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <!-- Unmute overlay — shown over the video, fades on hover -->
+        <div class="blessings-unmute-overlay" id="blessings-unmute-overlay">
+          <button
+            class="blessings-mute-btn"
+            id="blessings-mute-btn"
+            onclick="(function(){
+              var v = document.getElementById('blessings-video');
+              var overlay = document.getElementById('blessings-unmute-overlay');
+              v.muted = !v.muted;
+              document.getElementById('blessings-mute-btn').innerHTML = v.muted
+                ? '<svg width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'currentColor\'><path d=\'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z\'/><line x1=\'1\' y1=\'1\' x2=\'23\' y2=\'23\' stroke=\'currentColor\' stroke-width=\'2\'/></svg> Muted'
+                : '<svg width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'currentColor\'><path d=\'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z\'/></svg> Unmute';
+              if (!v.muted) overlay.style.opacity = '0';
+            })()"
+            aria-label="Toggle mute"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/></svg>
+            Unmute
+          </button>
+        </div>
+      </div>
+      <div class="blessings-video-caption">
+        Blessing the Hon'ble Prime Minister Shri Narendra Modi
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About Me</div>
+    <div class="about-inner">
+      <div class="about-intro">
+        <h2 class="about-headline">
+          C V Gopinath is a <em class="gold">Vedic scholar</em> bridging ancient Indian philosophy and modern life —
+          inspiring <em class="saffron">thousands</em> through illuminating audio visual presentation.
+        </h2>
+        <p class="about-subtext">From Bhagavadgeetha to boardrooms, from Himalayas to homes.</p>
+        <a href="profile.html" class="btn-primary" id="explore-journey-btn">Explore His Journey →</a>
+      </div>
+      <div class="about-services-box">
+        <ul class="about-services-list">
+          <li>Motivational talks in schools and colleges</li>
+          <li>Parental mentorship</li>
+          <li>Insight into Indian knowledge systems and heritage</li>
+          <li>Indepth analysis of the primordial sound &mdash; OM &mdash; Pan India in 18 Indian languages</li>
+          <li>Pep talks and counseling of Children</li>
+          <li>Preaching Indian ethos to the Civil services aspirants</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TALKS -->
+  <section id="talks">
+    <div class="section-header-row">
+      <div class="section-label">Featured Work</div>
+    </div>
+    <h2 class="section-title-marquee">C V Gopinath through Print, Audio, Visual and Audio-Visual</h2>
+
+    <div style="overflow-x: auto; margin-top: 40px; margin-bottom: 50px;" class="reveal">
+      <table class="assoc-table">
+        <thead>
+          <tr>
+            <th style="width: 8%; text-align: center;">Icon</th>
+            <th style="width: 22%;">Media Category</th>
+            <th style="width: 55%;">Description</th>
+            <th style="text-align: center; width: 15%;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📰</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Print</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Articles by C V Gopinath and media coverage.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Explore Print →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">📻</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Discourse on OM, the Primordial, in 18 Indian languages, and radio talks.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="articles-and-print.html?tab=audio" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Listen Audio →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🖼️</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Motivational talks and interaction with Civil Services aspirants.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="gallery.html" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">View Gallery →</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-size: 1.5rem; vertical-align: middle;">🎥</td>
+            <td style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); vertical-align: middle;">Audio-Visual</td>
+            <td style="color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; vertical-align: middle;">Globally celebrated Audio-Visual presentation in English, Kannada and Hindi on the subject of "Himalayas on Vedic concepts" - Globally known AV show on Pilgrimage and Manasarovar.</td>
+            <td style="font-style: normal; text-align: center; vertical-align: middle;">
+              <a href="videos.html?filter=video" class="talk-btn" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; display: inline-block;">Watch Videos →</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+
+
+  <!-- JOURNEY / PROCESS -->
+  <section id="journey">
+    <div class="section-label">My Workflow</div>
+    <div class="journey-headline-wrap">
+      <h2 class="journey-headline">
+        "From silence to stage, each word is crafted to <em class="gold">awaken</em>, <em class="saffron">inspire</em>,
+        and transform."
+      </h2>
+
+    </div>
+    <div class="journey-cards">
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-card-num">0-001</span>
+          <span class="journey-card-icon">ॐ</span>
+        </div>
+        <h3 class="journey-card-title">Vedic Roots</h3>
+        <p class="journey-card-desc">Decades of study in Bhagavadgeetha and Vedic philosophy — from Upanishads to Puranas. From Panchatantra to Chandamama stories to rejuvenate children's minds.</p>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-card-num">0-002</span>
+          <span class="journey-card-icon">🎤</span>
+        </div>
+        <h3 class="journey-card-title">The Voice</h3>
+        <p class="journey-card-desc">Motivational speaking across Karnataka and India — touching hearts, transforming
+          lives.</p>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-card-num">0-003</span>
+          <span class="journey-card-icon">✍</span>
+        </div>
+        <h3 class="journey-card-title">The Written Word</h3>
+        <p class="journey-card-desc">Articles written by C V Gopinath as well as written about him.</p>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-card-num">0-004</span>
+          <span class="journey-card-icon">🏆</span>
+        </div>
+        <h3 class="journey-card-title">The Recognition</h3>
+        <p class="journey-card-desc">Governors to eminent personalities both within and outside India.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IMPRESSIONS -->
+  <section id="impressions-home">
+    <div class="section-header-row">
+      <div class="section-label">Near What Others Said</div>
+      <div class="section-count">800+ Satisfied Lives</div>
+    </div>
+    <h2 class="impressions-headline">Esteem impressions<br /><em class="gold">of the chosen Elite</em></h2>
+
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"He weaves a tapestry of ethereal beauty and embraces his audience in the eternal spirit of India&hellip; The Audio-Visual presentation on &lsquo;Pilgrimage to Kailas and Manassarovar&rsquo; of C.V.Gopinath is somewhat like Panditji&rsquo;s Discovery of India."</p>
+        <span class="testimonial-name">&mdash; Late Dr. L.M. Singhvi, Eminent Jurist &amp; Formerly Indian High Commissioner to U.K.</span>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Shri C.V. Gopinath, with his erudite scholarship and devotion to revive roots of our great cultural heritage is a natural cultural Ambassador of Karnataka."</p>
+        <span class="testimonial-name">&mdash; T.N. Chaturvedi, Governor, Karnataka</span>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"As a man, Shri Gopinath is devoid of many weaknesses which beset human mind and with his honest and upright devotion to promote traditional Indian values, I am sure he shall always bring dignity to all those who may come in his contact and as well earn him their respect."</p>
+        <span class="testimonial-name">&mdash; Bhure Lal, Secretary (Co-ord. &amp; Plg.), Cabinet Secretariat</span>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Although we spent the time inside a dark room, it was possible to feel a strange light beginning to glimmer inside the inner self&hellip; our deep gratitude to you for enabling us to undergo such a moving and enlightening experience."</p>
+        <span class="testimonial-name">&mdash; Bharat Vyas, Asstt. Resident Representative (Programme), UNDP, India</span>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"It is heartening to learn that, after a distinguished career in the civil services, you have devoted yourself to guiding and mentoring civil services aspirants in the areas of ethics and moral leadership."</p>
+        <span class="testimonial-name">&mdash; Dr. Himanta Biswa Sarma, Chief Minister of Assam</span>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"In today's information rich society, there are many onslaughts of visual and audio information, but harnessing of different media in a manner to generate a completely new kind of experience in the audience was something which only a maestro like Mr. Gopinath could put together. It is remarkable that the audience which constituted largely of restless teenagers, whose span of attention does not usually exceed a few minutes, was held spell bound for over 2 hours."</p>
+        <span class="testimonial-name">&mdash; M.M. Pant, Executive Director, Vivekananda Institute of Professional Studies</span>
+      </div>
+
+      <div class="testimonial-card impressions-cta-card">
+        <p class="testimonial-cta-text">Read all 30+ impressions from eminent personalities across India and beyond.</p>
+        <a href="impressions.html" class="btn-primary" id="start-journey-btn">View All Impressions &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER BRAND -->
+  <footer id="main-footer">
+    <div class="footer-brand-row">
+      <span class="footer-strategy">A VOICE</span>
+      <span class="footer-for">FOR</span>
+      <span class="footer-context">TIMELESS INDIA</span>
+    </div>
+    <div class="footer-marquee-wrap">
+      <h2 class="footer-marquee">VEDIC SCHOLAR</h2>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-nav-col">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="articles-and-print.html">Articles and Print</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="videos.html">Videos</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="awards.html">Awards</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="associations.html">Associations</a>
+        <a href="impressions.html">Impressions</a>
+      </div>
+      <div class="footer-contact-col">
+        <span>Karnataka, India</span>
+        <span>Speaking Nationwide</span>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@GopinathGrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link yt" aria-label="C V Gopinath on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.instagram.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link ig" aria-label="C V Gopinath on Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link fb" aria-label="C V Gopinath on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-copy">
+      <span>©2025 C V GOPINATH</span>
+      <span>·</span>
+      <span>Crafted with devotion</span>
+      <span>·</span>
+      <span>Privacy Policy</span>
+      <span>·</span>
+      <span>Terms & Conditions</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

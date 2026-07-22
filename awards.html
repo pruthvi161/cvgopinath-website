@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awards — C V Gopinath · Recognitions &amp; Honours</title>
+  <meta name="description" content="Awards and honours received by C V Gopinath — from Governors, international bodies, cultural institutions, and eminent personalities." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===== AWARDS PAGE — REFERENCE MATCH ===== */
+    .awards-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .awards-section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .awards-section-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .awards-section-header h2 span {
+      color: #D4AF37;
+    }
+
+    .awards-section-header p {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: #B0B0B0;
+      margin: 0;
+    }
+
+    /* 2-column grid */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    /* Award card */
+    .award-card {
+      background: #1A1A1A;
+      border-left: 3px solid #D4AF37;
+      padding: 28px;
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: background 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .award-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .award-card:hover {
+      background: #222222;
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.08);
+    }
+
+    .award-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #D4AF37;
+      margin: 0 0 8px;
+      line-height: 1.35;
+    }
+
+    .award-card .award-org-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .award-card .award-yr {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #D4AF37;
+      margin-bottom: 10px;
+    }
+
+    .award-card .award-field {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: #B0B0B0;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .award-level {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      background: rgba(212, 175, 55, 0.12);
+      color: #D4AF37;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .award-level.intl  { background: rgba(212,175,55,0.15); color: #D4AF37; }
+    .award-level.state { background: rgba(80,200,120,0.1);  color: #7ecba1; border-color: rgba(80,200,120,0.25); }
+    .award-level.natl  { background: rgba(100,160,240,0.1); color: #8ab4f8; border-color: rgba(100,160,240,0.25); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .awards-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .awards-section { padding: 40px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-brand"><span class="nav-brand-name">C V Gopinath</span></div>
+    <button class="nav-menu-btn" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="articles-and-print.html">Articles and Print</a></li>
+      <li><a href="videos.html">Videos</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="awards.html" class="active">Awards</a></li>
+      <li><a href="associations.html">Associations</a></li>
+      <li><a href="impressions.html">Impressions</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <p class="page-hero-label">A Legacy of Recognition</p>
+    <h1 class="page-hero-title">Awards &amp; <span>Honours</span></h1>
+    <p class="page-hero-sub">Recognised by Governors, national institutions, international bodies, and cultural organisations across India and beyond.</p>
+  </div>
+
+  <section class="awards-section">
+
+    <div class="awards-section-header">
+      <h2>Recognition &amp; <span>Awards</span></h2>
+      <p>Honors received across state, national, and international levels</p>
+    </div>
+
+    <div class="awards-grid">
+
+      <!-- 1 -->
+      <div class="award-card">
+        <h3>Karnataka Rajyotsava Award</h3>
+        <div class="award-org-name">Government of Karnataka</div>
+        <div class="award-yr">2004</div>
+        <div class="award-field">Value Education, Self Esteem rejuvenation and Culture among Teachers and Students</div>
+        <span class="award-level state">State</span>
+      </div>
+
+      <!-- 2 -->
+      <div class="award-card">
+        <h3>Akhilabharata Kannada Sahitya Sammelana Sanmana</h3>
+        <div class="award-org-name">Autonomous Body funded by Government of Karnataka</div>
+        <div class="award-yr">2008</div>
+        <div class="award-field">Vedic culture exposition to public in Kannada</div>
+        <span class="award-level state">State</span>
+      </div>
+
+      <!-- 3 -->
+      <div class="award-card">
+        <h3>FOSSAC Award, California USA</h3>
+        <div class="award-org-name">Friends of South Asian Americans, California USA</div>
+        <div class="award-yr">2007</div>
+        <div class="award-field">Vedic Culture, Community development leadership to Imbibe values</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 4 -->
+      <div class="award-card">
+        <h3>Global Man Award, UAE</h3>
+        <div class="award-org-name">World Kannada Cultural Convention at UAE</div>
+        <div class="award-yr">2004</div>
+        <div class="award-field">Working with children to imbibe Traditional values, Culture and Heritage</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 5 -->
+      <div class="award-card">
+        <h3>Ambassador of Peace</h3>
+        <div class="award-org-name">Universal Peace Federation (UN sponsored), Jerusalem, Israel</div>
+        <div class="award-yr">2007</div>
+        <div class="award-field">Hinduism Perspectives in Interfaith Dialogue for Middle East Peace at Jerusalem, Israel</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 6 -->
+      <div class="award-card">
+        <h3>Legislative Appreciation</h3>
+        <div class="award-org-name">California Legislature Assembly, U.S.A.</div>
+        <div class="award-yr">2007</div>
+        <div class="award-field">Outstanding Commitment to South Asian American Community</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 7 -->
+      <div class="award-card">
+        <h3>The Shugden Society of India Award</h3>
+        <div class="award-org-name">Jigme Dorje, The Shugden Society of India, New Delhi</div>
+        <div class="award-yr">2001</div>
+        <div class="award-field">Contribution to Buddhist Teaching</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 8 -->
+      <div class="award-card">
+        <h3>Order of Merit — Patron Emeritus</h3>
+        <div class="award-org-name">Sadvidya Pratisthan, Noida NCR</div>
+        <div class="award-yr">2020</div>
+        <div class="award-field">Vedic Scholarship and teaching children</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 9 -->
+      <div class="award-card">
+        <h3>Udupi Paryaya Sanman</h3>
+        <div class="award-org-name">1000 Years Old Udupi Srikrishna Math, Karnataka</div>
+        <div class="award-yr">2008</div>
+        <div class="award-field">Vedic Scholarship</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 10 -->
+      <div class="award-card">
+        <h3>Guru Samman Award</h3>
+        <div class="award-org-name">Samkalp IAS Academy, New Delhi</div>
+        <div class="award-yr">2010</div>
+        <div class="award-field">Teaching Ethics and Morality to IAS Aspirants</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 11 -->
+      <div class="award-card">
+        <h3>Sir M. Visweswaraiah Best Engineer Award</h3>
+        <div class="award-org-name">Institution of Engineers India</div>
+        <div class="award-yr">2012</div>
+        <div class="award-field">Traffic Engineering and Network Planning</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 12 -->
+      <div class="award-card">
+        <h3>Bhagawan Gopinath Trust Award</h3>
+        <div class="award-org-name">Bhagawan Gopinath Trust, J&amp;K — Centenary Celebrations</div>
+        <div class="award-yr">1998</div>
+        <div class="award-field">Vedic Culture reference to Kashmir Culture</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 13 -->
+      <div class="award-card">
+        <h3>Delhi Karnataka Sangha Award</h3>
+        <div class="award-org-name">Delhi Karnataka Sangha, New Delhi</div>
+        <div class="award-yr">2005</div>
+        <div class="award-field">Contribution to Kannada Culture</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 14 -->
+      <div class="award-card">
+        <h3>Atisha Award</h3>
+        <div class="award-org-name">Atisha Mahayana Buddhist Kundeling Monastery, Mysore</div>
+        <div class="award-yr">—</div>
+        <div class="award-field">Social Welfare</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 15 -->
+      <div class="award-card">
+        <h3>Nagarik Sewa Dhureena</h3>
+        <div class="award-org-name">300 Years Old Swarnavalli Shankaracharya Math, Shirsi, Karnataka</div>
+        <div class="award-yr">2020</div>
+        <div class="award-field">Vedic Propagation and Gita Teaching</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 16 -->
+      <div class="award-card">
+        <h3>Professor of Philosophy</h3>
+        <div class="award-org-name">Hemanth Yoga Academy, Beijing, China — Yogic Sciences</div>
+        <div class="award-yr">2023</div>
+        <div class="award-field">Institution run in China over 20 years, led by international yoga gold medallist</div>
+        <span class="award-level intl">International</span>
+      </div>
+
+      <!-- 17 -->
+      <div class="award-card">
+        <h3>Motivational Speaker Recognition</h3>
+        <div class="award-org-name">Al-Ameen Arts, Science &amp; Commerce College, Bengaluru — IQAC &amp; R&amp;D Cell</div>
+        <div class="award-yr">2026</div>
+        <div class="award-field">Inspirational talk on Career Guidance</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+      <!-- 18 -->
+      <div class="award-card">
+        <h3>Appreciation Award — Social Service</h3>
+        <div class="award-org-name">Brahma Kumaris, Pandav Bhavan, Mount Abu, Rajasthan</div>
+        <div class="award-yr">2025</div>
+        <div class="award-field">Social Service</div>
+        <span class="award-level natl">National</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATES SECTION -->
+  <section style="padding: 20px 48px 80px; border-top: 1px solid var(--border);">
+    <div class="section-label" style="margin-bottom:16px;">Certificate Gallery</div>
+    <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--text-muted);margin-bottom:48px;line-height:1.7;">
+      A selection of certificates, citations, and formal recognitions from institutions across India and internationally.
+    </p>
+    <div class="certs-grid" style="padding:0;">
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Guru Samman- Sankalpa.jpg" alt="Guru Samman" loading="lazy"/>
+        <p class="cert-item-name">Guru Samman — Sankalpa</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Institution of Engineers-Best Engineer.jpg" alt="Best Engineer" loading="lazy"/>
+        <p class="cert-item-name">Best Engineer — Institution of Engineers</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Leadership Qualities-Press coverage.jpg" alt="Leadership" loading="lazy"/>
+        <p class="cert-item-name">Leadership — Press Coverage</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Nagareeka Dhureena-Swarnavalli ashrama.jpg" alt="Nagareeka Dhureena" loading="lazy"/>
+        <p class="cert-item-name">Nagareeka Dhureena — Swarnavalli Ashrama</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Sadvidya-Order of merit.jpg" alt="Order of Merit" loading="lazy"/>
+        <p class="cert-item-name">Sadvidya — Order of Merit</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Udupi Paryaya Prashasti.jpg" alt="Udupi Prashasti" loading="lazy"/>
+        <p class="cert-item-name">Udupi Paryaya Prashasti</p>
+      </div>
+      <div class="cert-item reveal">
+        <img src="assets/gallery-certs-001/Gallery-Certificates/Impressions of esteemed personalities/Vishishta kannadiga-Delhi Karnataka sangha.jpg" alt="Vishishta Kannadiga" loading="lazy"/>
+        <p class="cert-item-name">Vishishta Kannadiga — Delhi Karnataka Sangha</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightbox-close">✕</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <footer id="main-footer">
+    <div class="footer-brand-row">
+      <span class="footer-strategy">A VOICE</span><span class="footer-for">FOR</span><span class="footer-context">TIMELESS INDIA</span>
+    </div>
+    <div class="footer-marquee-wrap"><h2 class="footer-marquee">VEDIC SCHOLAR</h2></div>
+    <div class="footer-bottom">
+      <div class="footer-nav-col">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="articles-and-print.html">Articles and Print</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="videos.html">Videos</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="awards.html">Awards</a>
+      </div>
+      <div class="footer-nav-col">
+        <a href="associations.html">Associations</a>
+        <a href="impressions.html">Impressions</a>
+      </div>
+      <div class="footer-contact-col"><span>Karnataka, India</span><span>Speaking Nationwide</span>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@GopinathGrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link yt" aria-label="C V Gopinath on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.instagram.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link ig" aria-label="C V Gopinath on Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/gopinathgrandpa" target="_blank" rel="noopener noreferrer" class="footer-social-link fb" aria-label="C V Gopinath on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copy"><span>©2025 C V GOPINATH</span><span>·</span><span>Crafted with devotion</span></div>
+  </footer>
+
+  <script src="main.js"></script>
+
+  <script>
+    // Scroll reveal for award cards
+    const cards = document.querySelectorAll('.award-card');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    cards.forEach(c => obs.observe(c));
+  </script>
+</body>
+</html>
